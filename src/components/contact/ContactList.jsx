@@ -1,19 +1,47 @@
-export const ContactList = ({ contacts }) => (
+import { ContactItem } from "./Contact";
+import { Filter } from "components/Filter";
+
+export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => (
   <div>
-    <h2>Contact List</h2>
+    <h2>Contacts</h2>
+
+    <Filter filter={filter} handleChange={handleChange} />
+
     {contacts.length === 0 ? (
       <p>No contacts yet.</p>
     ) : (
       <ul>
         {contacts.map((contact, index) => (
-          <li key={index}>
-            {contact.name} - {contact.number}
-          </li>
+          <ContactItem
+            key={index}
+            contact={contact}
+            handleDelete={() => handleDelete(index)}
+          />
         ))}
       </ul>
     )}
   </div>
 );
+
+
+
+
+// export const ContactList = ({ contacts }) => (
+//   <div>
+//     <h2>Contact List</h2>
+//     {contacts.length === 0 ? (
+//       <p>No contacts yet.</p>
+//     ) : (
+//       <ul>
+//         {contacts.map((contact, index) => (
+//           <li key={index}>
+//             {contact.name} - {contact.number}
+//           </li>
+//         ))}
+//       </ul>
+//     )}
+//   </div>
+// );
 
 
 

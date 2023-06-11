@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { ContactForm } from './form/Form';
+import { ContactList } from './contact/ContactList';
 
 export class App extends Component {
   state = {
@@ -21,7 +22,10 @@ export class App extends Component {
     );
 
     if (isDuplicateContact) {
-      alert('Цей контакт вже є в телефонній книзі.');
+      const duplicateContact = contacts.find(
+        (contact) => contact.name.toLowerCase() === name.value.toLowerCase()
+      );
+      alert(`${duplicateContact.name} is already in contacts.`);
       return;
     }
 
@@ -52,75 +56,295 @@ export class App extends Component {
 
     return (
       <div>
-        <h1>Contact Application</h1>
+        <h1>Phonebook</h1>
 
-        <ContactForm
+        <ContactForm handleSubmit={this.handleSubmit} />
+
+        <ContactList
+          contacts={filteredContacts}
           filter={filter}
           handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
+          handleDelete={this.handleDelete}
         />
-
-        <ContactList contacts={filteredContacts} handleDelete={this.handleDelete} />
       </div>
     );
   }
 }
 
-const ContactForm = ({ filter, handleChange, handleSubmit }) => (
-  <form onSubmit={handleSubmit}>
-    <label>
-      Name:
-      <input
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-      />
-    </label>
 
-    <label>
-      Phone Number:
-      <input
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-      />
-    </label>
 
-    <label>
-      Filter by Name:
-      <input
-        type="text"
-        name="filter"
-        value={filter}
-        onChange={handleChange}
-      />
-    </label>
 
-    <button type="submit">Add Contact</button>
-  </form>
-);
 
-const ContactList = ({ contacts, handleDelete }) => (
-  <div>
-    <h2>Contact List</h2>
-    {contacts.length === 0 ? (
-      <p>No contacts yet.</p>
-    ) : (
-      <ul>
-        {contacts.map((contact, index) => (
-          <li key={index}>
-            {contact.name} - {contact.number}
-            <button onClick={() => handleDelete(index)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
-);
+
+
+
+
+
+
+
+
+
+
+
+// import React, { Component } from 'react';
+
+// export class App extends Component {
+//   state = {
+//     contacts: [],
+//     filter: ''
+//   };
+
+//   handleChange = (e) => {
+//     this.setState({ filter: e.target.value });
+//   };
+
+//   handleSubmit = (e) => {
+//     e.preventDefault();
+//     const { contacts } = this.state;
+//     const { name, number } = e.target.elements;
+
+//     const isDuplicateContact = contacts.some(
+//       (contact) => contact.name.toLowerCase() === name.value.toLowerCase()
+//     );
+
+//     if (isDuplicateContact) {
+//       const duplicateContact = contacts.find(
+//         (contact) => contact.name.toLowerCase() === name.value.toLowerCase()
+//       );
+//       alert(`${duplicateContact.name} is already in contacts.`);
+//       return;
+
+//     }
+
+//     const newContact = {
+//       name: name.value,
+//       number: number.value
+//     };
+
+//     this.setState((prevState) => ({
+//       contacts: [...prevState.contacts, newContact]
+//     }));
+
+//     name.value = '';
+//     number.value = '';
+//   };
+
+//   handleDelete = (index) => {
+//     this.setState((prevState) => ({
+//       contacts: prevState.contacts.filter((_, i) => i !== index)
+//     }));
+//   };
+
+//   render() {
+//     const { filter, contacts } = this.state;
+//     const filteredContacts = contacts.filter((contact) =>
+//       contact.name.toLowerCase().includes(filter.toLowerCase())
+//     );
+
+//     return (
+//       <div>
+//         <h1>Phonebook</h1>
+
+//         <ContactForm handleSubmit={this.handleSubmit} />
+
+//         <ContactList
+//           contacts={filteredContacts}
+//           filter={filter}
+//           handleChange={this.handleChange}
+//           handleDelete={this.handleDelete}
+//         />
+//       </div>
+//     );
+//   }
+// }
+
+// const ContactForm = ({ handleSubmit }) => (
+//   <form onSubmit={handleSubmit}>
+//     <label>
+//       Name
+//       <input
+//         type="text"
+//         name="name"
+//         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+//         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+//         required
+//       />
+//     </label>
+
+//     <label>
+//       Number
+//       <input
+//         type="tel"
+//         name="number"
+//         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+//         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+//         required
+//       />
+//     </label>
+
+//     <button type="submit">Add contact</button>
+//   </form>
+// );
+
+// const ContactList = ({ contacts, filter, handleChange, handleDelete }) => (
+//   <div>
+//     <h2>Contacts</h2>
+
+//     <label>
+//       Find contacts by name
+//       <input
+//         type="text"
+//         name="filter"
+//         value={filter}
+//         onChange={handleChange}
+//       />
+//     </label>
+
+//     {contacts.length === 0 ? (
+//       <p>No contacts yet.</p>
+//     ) : (
+//       <ul>
+//         {contacts.map((contact, index) => (
+//           <li key={index}>
+//             {contact.name} : {contact.number}
+//             <button onClick={() => handleDelete(index)}>Delete</button>
+//           </li>
+//         ))}
+//       </ul>
+//     )}
+//   </div>
+// );
+
+
+
+
+
+
+
+
+// import React, { Component } from 'react';
+
+
+// export class App extends Component {
+//   state = {
+//     contacts: [],
+//     filter: ''
+//   };
+
+//   handleChange = (e) => {
+//     this.setState({ filter: e.target.value });
+//   };
+
+//   handleSubmit = (e) => {
+//     e.preventDefault();
+//     const { contacts } = this.state;
+//     const { name, number } = e.target.elements;
+
+//     const isDuplicateContact = contacts.some(
+//       (contact) => contact.name.toLowerCase() === name.value.toLowerCase()
+//     );
+
+//     if (isDuplicateContact) {
+//       alert('Цей контакт вже є в телефонній книзі.');
+//       return;
+//     }
+
+//     const newContact = {
+//       name: name.value,
+//       number: number.value
+//     };
+
+//     this.setState((prevState) => ({
+//       contacts: [...prevState.contacts, newContact]
+//     }));
+
+//     name.value = '';
+//     number.value = '';
+//   };
+
+//   handleDelete = (index) => {
+//     this.setState((prevState) => ({
+//       contacts: prevState.contacts.filter((_, i) => i !== index)
+//     }));
+//   };
+
+//   render() {
+//     const { filter, contacts } = this.state;
+//     const filteredContacts = contacts.filter((contact) =>
+//       contact.name.toLowerCase().includes(filter.toLowerCase())
+//     );
+
+//     return (
+//       <div>
+//         <h1>Phonebook</h1>
+
+//         <ContactForm
+//           filter={filter}
+//           handleChange={this.handleChange}
+//           handleSubmit={this.handleSubmit}
+//         />
+
+//         <ContactList contacts={filteredContacts} handleDelete={this.handleDelete} />
+//       </div>
+//     );
+//   }
+// }
+
+// const ContactForm = ({ filter, handleChange, handleSubmit }) => (
+//   <form onSubmit={handleSubmit}>
+//     <label>
+//       Name
+//       <input
+//         type="text"
+//         name="name"
+//         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+//         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+//         required
+//       />
+//     </label>
+
+//     <label>
+//       Number
+//       <input
+//         type="tel"
+//         name="number"
+//         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+//         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+//         required
+//       />
+//     </label>
+
+//     <label>
+//       Find contacts by name
+//       <input
+//         type="text"
+//         name="filter"
+//         value={filter}
+//         onChange={handleChange}
+//       />
+//     </label>
+
+//     <button type="submit">Add contact</button>
+//   </form>
+// );
+
+// const ContactList = ({ contacts, handleDelete }) => (
+//   <div>
+//     <h2>Contacts</h2>
+//     {contacts.length === 0 ? (
+//       <p>No contacts yet.</p>
+//     ) : (
+//       <ul>
+//         {contacts.map((contact, index) => (
+//           <li key={index}>
+//             {contact.name} - {contact.number}
+//             <button onClick={() => handleDelete(index)}>Delete</button>
+//           </li>
+//         ))}
+//       </ul>
+//     )}
+//   </div>
+// );
 
 
 
