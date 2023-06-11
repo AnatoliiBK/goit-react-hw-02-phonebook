@@ -3,28 +3,96 @@ import { Filter } from "components/Filter";
 import PropTypes from 'prop-types';
 import { listStyle } from "components/styles";
 
+export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => {
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
-export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => (
-  <div style={listStyle}>
-    <h2>Contacts</h2>
+  return (
+    <div style={listStyle}>
+      <h2>Contacts</h2>
 
-    <Filter filter={filter} handleChange={handleChange} />
+      <Filter filter={filter} handleChange={handleChange} />
 
-    {contacts.length === 0 ? (
-      <p>The contact list will be displayed here</p>
-    ) : (
-      <ul>
-        {contacts.map((contact, index) => (
+      {filteredContacts.length === 0 ? (
+        <p>The contact list will be displayed here</p>
+      ) : (
+        <ul>
+          {filteredContacts.map((contact, index) => (
           <ContactItem
-            key={index}
-            contact={contact}
-            handleDelete={() => handleDelete(index)}
-          />
-        ))}
-      </ul>
-    )}
-  </div>
-);
+          key={contact.id}
+          contact={contact}
+          handleDelete={() => handleDelete(contact.id)}
+        />
+        
+          
+          // <ContactItem
+            //   key={index}
+            //   contact={contact}
+            //   handleDelete={() => handleDelete(index)}
+            // />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+
+
+
+
+// export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => (
+//   <div style={listStyle}>
+//     <h2>Contacts</h2>
+
+//     <Filter filter={filter} handleChange={handleChange} />
+
+//     {contacts.length === 0 ? (
+//       <p>The contact list will be displayed here</p>
+//     ) : (
+//       <ul>
+//         {contacts.map((contact, index) => (
+//           <ContactItem
+//             key={index}
+//             contact={contact}
+//             handleDelete={() => handleDelete(index)}
+//           />
+//         ))}
+//       </ul>
+//     )}
+//   </div>
+// );
+
+
+// export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => {
+//   const filteredContacts = contacts.filter((contact) =>
+//     contact.name.toLowerCase().includes(filter.toLowerCase())
+//   );
+
+//   return (
+//     <div style={listStyle}>
+//       <h2>Contacts</h2>
+
+//       <Filter filter={filter} handleChange={handleChange} />
+
+//       {filteredContacts.length === 0 ? (
+//         <p>The contact list will be displayed here</p>
+//       ) : (
+//         <ul>
+//           {filteredContacts.map((contact, index) => (
+//             <ContactItem
+//               key={index}
+//               contact={contact}
+//               handleDelete={() => handleDelete(index)}
+//             />
+//           ))}
+//         </ul>
+//       )}
+//     </div>
+//   );
+// };
+
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(

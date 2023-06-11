@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ContactForm } from './form/Form';
 import { ContactList } from './contact/ContactList';
 import PropTypes from 'prop-types';
-
+import { nanoid } from 'nanoid';
 export class App extends Component {
   state = {
     contacts: [],
@@ -31,6 +31,7 @@ export class App extends Component {
     }
 
     const newContact = {
+      id: nanoid(),
       name: name.value,
       number: number.value
     };
@@ -42,12 +43,20 @@ export class App extends Component {
     name.value = '';
     number.value = '';
   };
-
-  handleDelete = (index) => {
+  
+  handleDelete = (id) => {
     this.setState((prevState) => ({
-      contacts: prevState.contacts.filter((_, i) => i !== index)
+      contacts: prevState.contacts.filter((contact) => contact.id !== id)
     }));
   };
+  
+  // handleDelete = (index) => {
+  //   this.setState((prevState) => ({
+  //     // відфільтровуютья контакти індекс яких не збігається з індексом контакту для видалення
+  //     contacts: prevState.contacts.filter((_, i) => i !== index)
+  //   }));
+  // };
+  
 
   render() {
     const { filter, contacts } = this.state;
