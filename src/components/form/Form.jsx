@@ -1,8 +1,13 @@
+import PropTypes from 'prop-types';
+import { formStyle, labelStyle, inputStyle, buttonStyle } from 'components/styles';
 export const ContactForm = ({ handleSubmit }) => (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
+    
+    
+    <form onSubmit={handleSubmit} style={formStyle}>
+      <label style={labelStyle}>
+        Name
         <input
+          style={inputStyle}  
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' :][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -11,9 +16,10 @@ export const ContactForm = ({ handleSubmit }) => (
         />
       </label>
   
-      <label>
-        Number:
+      <label style={labelStyle}>
+        Number
         <input
+          style={inputStyle}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -22,9 +28,16 @@ export const ContactForm = ({ handleSubmit }) => (
         />
       </label>
   
-      <button type="submit">Add contact</button>
+      <button type="submit" style={buttonStyle}>Add contact</button>
     </form>
   );
+
+  ContactForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    number: PropTypes.string,
+  };
+  
 
 
 

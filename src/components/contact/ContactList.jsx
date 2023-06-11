@@ -1,14 +1,17 @@
 import { ContactItem } from "./Contact";
 import { Filter } from "components/Filter";
+import PropTypes from 'prop-types';
+import { listStyle } from "components/styles";
+
 
 export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => (
-  <div>
+  <div style={listStyle}>
     <h2>Contacts</h2>
 
     <Filter filter={filter} handleChange={handleChange} />
 
     {contacts.length === 0 ? (
-      <p>No contacts yet.</p>
+      <p>The contact list will be displayed here</p>
     ) : (
       <ul>
         {contacts.map((contact, index) => (
@@ -22,6 +25,18 @@ export const ContactList = ({ contacts, filter, handleChange, handleDelete }) =>
     )}
   </div>
 );
+
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  filter: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
 
 
 

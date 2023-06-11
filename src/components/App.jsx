@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ContactForm } from './form/Form';
 import { ContactList } from './contact/ContactList';
+import PropTypes from 'prop-types';
 
 export class App extends Component {
   state = {
@@ -56,7 +57,7 @@ export class App extends Component {
 
     return (
       <div>
-        <h1>Phonebook</h1>
+        <h1 style={{marginLeft: "80px", fontSize: "40px"}}>Phonebook</h1>
 
         <ContactForm handleSubmit={this.handleSubmit} />
 
@@ -71,6 +72,18 @@ export class App extends Component {
   }
 }
 
+App.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+  filter: PropTypes.string,
+  handleChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleDelete: PropTypes.func,
+};
 
 
 
