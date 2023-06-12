@@ -24,74 +24,12 @@ export const ContactList = ({ contacts, filter, handleChange, handleDelete }) =>
           contact={contact}
           handleDelete={() => handleDelete(contact.id)}
         />
-        
-          
-          // <ContactItem
-            //   key={index}
-            //   contact={contact}
-            //   handleDelete={() => handleDelete(index)}
-            // />
           ))}
         </ul>
       )}
     </div>
   );
 };
-
-
-
-
-
-// export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => (
-//   <div style={listStyle}>
-//     <h2>Contacts</h2>
-
-//     <Filter filter={filter} handleChange={handleChange} />
-
-//     {contacts.length === 0 ? (
-//       <p>The contact list will be displayed here</p>
-//     ) : (
-//       <ul>
-//         {contacts.map((contact, index) => (
-//           <ContactItem
-//             key={index}
-//             contact={contact}
-//             handleDelete={() => handleDelete(index)}
-//           />
-//         ))}
-//       </ul>
-//     )}
-//   </div>
-// );
-
-
-// export const ContactList = ({ contacts, filter, handleChange, handleDelete }) => {
-//   const filteredContacts = contacts.filter((contact) =>
-//     contact.name.toLowerCase().includes(filter.toLowerCase())
-//   );
-
-//   return (
-//     <div style={listStyle}>
-//       <h2>Contacts</h2>
-
-//       <Filter filter={filter} handleChange={handleChange} />
-
-//       {filteredContacts.length === 0 ? (
-//         <p>The contact list will be displayed here</p>
-//       ) : (
-//         <ul>
-//           {filteredContacts.map((contact, index) => (
-//             <ContactItem
-//               key={index}
-//               contact={contact}
-//               handleDelete={() => handleDelete(index)}
-//             />
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// };
 
 
 ContactList.propTypes = {
@@ -105,54 +43,3 @@ ContactList.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
-
-
-
-
-// export const ContactList = ({ contacts }) => (
-//   <div>
-//     <h2>Contact List</h2>
-//     {contacts.length === 0 ? (
-//       <p>No contacts yet.</p>
-//     ) : (
-//       <ul>
-//         {contacts.map((contact, index) => (
-//           <li key={index}>
-//             {contact.name} - {contact.number}
-//           </li>
-//         ))}
-//       </ul>
-//     )}
-//   </div>
-// );
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import { Contact } from './Contact';
-
-// export const ContactList = (props) => {
-//   // Отримати масив контактів з пропсів
-//   const { contacts } = props;
-
-//   // Використати map метод для перетворення кожного контакту в JSX елемент
-//   const contactItems = contacts.map((contact) => (
-//     <li key={contact.id}>
-//       <Contact name={contact.name} phone={contact.phone} avatar={contact.avatar} />
-//     </li>
-//   ));
-
-//   // Повернути список JSX елементів у вигляді ненумерованого списку
-//   return <ul>{contactItems}</ul>;
-// }
-
-
