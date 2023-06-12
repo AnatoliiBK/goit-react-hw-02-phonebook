@@ -18,6 +18,13 @@ export class App extends Component {
     const { contacts } = this.state;
     const { name, number } = e.target.elements;
 
+    const phoneRegex = /^\+?\d{1,4}[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+
+  if (!phoneRegex.test(number.value)) {
+    alert('Invalid phone number');
+    return;
+  }
+
     const isDuplicateContact = contacts.some(
       (contact) => contact.name.toLowerCase() === name.value.toLowerCase()
     );
